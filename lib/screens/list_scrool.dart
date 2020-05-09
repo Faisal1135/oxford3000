@@ -1,8 +1,8 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:oxford3000/model/dict_list.dart';
-import 'package:oxford3000/model/dictmodel.dart';
+import '../model/dict_list.dart';
+import '../model/modaldata.dart';
+import '../widgets/modal.dart';
 import 'package:provider/provider.dart';
 
 class ListDictScreen extends StatelessWidget {
@@ -12,10 +12,21 @@ class ListDictScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dictonary = Provider.of<WordListModel>(context);
+    final data = Provider.of<ModalData>(context);
+
     return Scaffold(
         appBar: AppBar(
           title: Text('Oxford 3000'),
         ),
+        floatingActionButton: FloatingActionButton(
+            child: Icon(Icons.bubble_chart),
+            onPressed: () {
+              showModalBottomSheet(
+                  context: context,
+                  builder: (_) => ModalAreaController(
+                        key: UniqueKey(),
+                      ));
+            }),
         body: ListView(
           children: <Widget>[
             Container(
@@ -23,7 +34,11 @@ class ListDictScreen extends StatelessWidget {
               decoration:
                   BoxDecoration(border: Border.all(color: Colors.amber)),
               child: ListWheelScrollView(
-                itemExtent: 80,
+                useMagnifier: true,
+                magnification: data.magnification,
+                diameterRatio: data.diameterRatio,
+                offAxisFraction: data.offAxisFraction,
+                itemExtent: 70,
                 children: dictonary.allDictItem
                     .map((dict) => MyItem(
                           enword: dict.englishWord,
@@ -71,31 +86,63 @@ class MyItem extends StatelessWidget {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight),
               borderRadius: BorderRadius.circular(15)),
-          child: Card(
-            color: color.withOpacity(0.45),
-            child: ListTile(
-              leading: CircleAvatar(
-                radius: 25,
-                child: FittedBox(
-                  child: Text(partsOfSpeech),
-                ),
+          child: ListTile(
+            leading: CircleAvatar(
+              child: FittedBox(
+                child: Text(partsOfSpeech),
               ),
-              title: Text(
-                enword,
-                style: TextStyle(color: Colors.white),
-              ),
-              subtitle: Container(
-                  child: Text(
-                bnword,
-                style: TextStyle(color: Colors.white),
-                softWrap: true,
-                overflow: TextOverflow.ellipsis,
-              )),
             ),
+            title: Text(
+              enword,
+              style: TextStyle(color: Colors.white),
+            ),
+            subtitle: Container(
+                child: Text(
+              bnword,
+              style: TextStyle(color: Colors.white),
+              softWrap: true,
+              overflow: TextOverflow.ellipsis,
+            )),
           )),
     );
   }
 }
+
+// class ModalAreaController extends StatelessWidget {
+//   const ModalAreaController({
+//     Key key,
+//   }) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final data = Provider.of<ModalData>(context);
+//     return Column(
+//       children: <Widget>[
+//         Text('offAxisFraction'),
+//         Slider(
+//           value: data.offAxisFraction,
+//           onChanged: data.changeOffAxis,
+//           min: -2,
+//           max: 2,
+//         ),
+//         Text('diameterRatio'),
+//         Slider(
+//           value: data.diameterRatio,
+//           onChanged: data.changeDiameter,
+//           min: 0.1,
+//           max: 10,
+//         ),
+//         Text('magnification'),
+//         Slider(
+//           value: data.magnification,
+//           onChanged: data.changeMagnification,
+//           min: 1,
+//           max: 3,
+//         ),
+//       ],
+//     );
+//   }
+// }
 
 // Center(
 //           child: Row(

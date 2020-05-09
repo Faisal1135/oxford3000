@@ -1,4 +1,5 @@
 import './model/dict_list.dart';
+import './model/modaldata.dart';
 import './screens/dict_screen.dart';
 import './screens/dictonary_details.dart';
 import './screens/dictonary_overview.dart';
@@ -16,8 +17,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
-      value: WordListModel(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(value: WordListModel()),
+        ChangeNotifierProvider.value(value: ModalData()),
+      ],
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(

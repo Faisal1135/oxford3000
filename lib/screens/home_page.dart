@@ -4,7 +4,6 @@ import '../model/dictmodel.dart';
 
 import '../screens/dictonary_overview.dart';
 import '../screens/list_scrool.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -68,10 +67,6 @@ class _HomepageState extends State<Homepage> {
                   color: Colors.amber,
                   child: Text('Start')),
               RaisedButton(
-                  // onPressed: () {
-                  //   Navigator.of(context).push(
-                  //       MaterialPageRoute(builder: (context) => DictScreen(),));
-                  // },
                   onPressed: () {
                     Navigator.of(context).pushNamed(ListDictScreen.routeName);
                   },
