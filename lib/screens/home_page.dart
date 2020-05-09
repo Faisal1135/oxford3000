@@ -3,6 +3,7 @@ import '../model/dict_list.dart';
 import '../model/dictmodel.dart';
 
 import '../screens/dictonary_overview.dart';
+import '../screens/list_scrool.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -65,7 +66,17 @@ class _HomepageState extends State<Homepage> {
                         .pushNamed(DictonaryOverView.routeName);
                   },
                   color: Colors.amber,
-                  child: Text('Start'))
+                  child: Text('Start')),
+              RaisedButton(
+                  // onPressed: () {
+                  //   Navigator.of(context).push(
+                  //       MaterialPageRoute(builder: (context) => DictScreen(),));
+                  // },
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(ListDictScreen.routeName);
+                  },
+                  color: Colors.amber,
+                  child: Text('ListView')),
             ],
           ),
         ),

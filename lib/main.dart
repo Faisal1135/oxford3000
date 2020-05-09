@@ -7,6 +7,7 @@ import './screens/dictonary_overview.dart';
 import 'package:provider/provider.dart';
 
 import './screens/home_page.dart';
+import './screens/list_scrool.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
         routes: {
           "/": (context) => Homepage(),
           DictScreen.routeName: (context) => DictScreen(),
+          ListDictScreen.routeName: (context) => ListDictScreen(),
           DictonaryOverView.routeName: (context) => DictonaryOverView(),
           DictonaryDetailsScreen.routeName: (context) =>
               DictonaryDetailsScreen(),
