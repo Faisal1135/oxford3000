@@ -11,65 +11,76 @@ class DictonaryDetailsScreen extends StatelessWidget {
         ModalRoute.of(context).settings.arguments as DictonaryModel;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Title'),
+        title: Text(dictonary.englishWord),
       ),
-      body: Container(
-        child: Column(
-          children: <Widget>[
-            RichText(
+      body: ListView(
+        children: <Widget>[
+          Center(
+            child: RichText(
               text: TextSpan(
                   text: dictonary.englishWord.substring(0, 1).toUpperCase(),
                   style: TextStyle(
                       color: Colors.black, fontWeight: FontWeight.bold),
                   children: [
-                    TextSpan(text: dictonary.englishWord.substring(1))
+                    TextSpan(text: dictonary.englishWord.substring(1)),
                   ]),
             ),
-            // RichText(
-            //   text: TextSpan(children: [
-            //     TextSpan(
-            //       text: dictonary.englishWord.substring(1, 2),
-            //       style: TextStyle(fontWeight: FontWeight.bold),
-            //     ),
-            //     TextSpan(
-            //       text: dictonary.englishWord.substring(1),
-            //       style: TextStyle(fontWeight: FontWeight.bold),
-            //     )
-            //   ]),
-            // ),
-
-            Container(
-              child: FittedBox(child: Text(dictonary.banglaWord)),
-              margin: const EdgeInsets.all(10),
-            ),
-
-            Expanded(
-              child: Container(
-                // height: MediaQuery.of(context).size.height * 0.75,
-                child: ListView.builder(
-                  itemCount: dictonary.meaning.length,
-                  itemBuilder: (BuildContext context, int i) {
-                    return Column(
-                      children: <Widget>[
-                        Container(
-                          child: Text(dictonary.partsOfSpeech[i]),
-                        ),
-                        Divider(),
-                        buildMeaning(
-                            mean: dictonary.meaningList[i], context: context)
-                        // Container(
-                        //   child: Text(dictonary.meaningList[i].toString()),
-                        // ),
-                      ],
-                    );
-                  },
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+          SizedBox(height: 20),
+          // Center(
+          //   child: buildBn(banglaWord: dictonary.banglaWord),
+          // ),
+          ExpansionTile(
+            title: Text("Bangla Meaning"),
+            subtitle: buildBn(banglaWord: dictonary.banglaWord),
+            children: <Widget>[buildBn(banglaWord: dictonary.banglaWord)],
+          ),
+          Column(
+            children: <Widget>[...buildEnMean(dictonary.meaning)],
+          )
+        ],
       ),
     );
+  }
+
+  buildBn({List banglaWord}) {
+    try {
+      return Wrap(
+          children: banglaWord.map((bn) => Text(bn.toString())).toList());
+    } catch (e) {
+      return Text(e.toString());
+    }
+  }
+
+  buildEnMean(Map meaning) {
+    List<Widget> widlist = [];
+    meaning.forEach((key, value) {
+      var meanList = List<String>.from(value);
+      Widget newExpan = ExpansionTile(title: Text(key), children: <Widget>[
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: meanList
+              .map((e) => Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    child: Wrap(
+                      children: <Widget>[
+                        Icon(Icons.ac_unit),
+                        Container(
+                          child: Text(
+                            e.trim(),
+                            textAlign: TextAlign.start,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ))
+              .toList(),
+        )
+      ]);
+      widlist.add(newExpan);
+    });
+
+    return widlist;
   }
 }
 
@@ -78,14 +89,15 @@ Widget buildMeaning({List mean, BuildContext context}) {
     return Column(
       children: <Widget>[
         Container(
-          height: MediaQuery.of(context).size.height * 0.3,
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          height: MediaQuery.of(context).size.height * 0.5,
           child: ListView.builder(
             itemCount: mean.length,
             itemBuilder: (BuildContext context, int index) {
-              return Column(
+              return Wrap(
                 children: <Widget>[
                   Text(mean[index]),
-                  Divider(),
+                  // Divider(),
                 ],
               );
             },

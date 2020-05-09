@@ -10,6 +10,7 @@ class DictonaryOverView extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text('Title'),
+          actions: <Widget>[],
         ),
         body: GridView(
           gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(

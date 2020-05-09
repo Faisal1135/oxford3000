@@ -46,7 +46,7 @@ class DictScreen extends StatelessWidget {
                 radius: 25,
               ),
               title: Text(dictlist[index].englishWord),
-              subtitle: Text(dictlist[index].banglaWord),
+              subtitle: buildSubtile(dictlist[index].banglaWord),
             );
           },
           separatorBuilder: (BuildContext context, int index) {
@@ -55,5 +55,13 @@ class DictScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  buildSubtile(List banglaWord) {
+    try {
+      return Text(banglaWord[0].toString());
+    } catch (e) {
+      Text(banglaWord[0].toString());
+    }
   }
 }

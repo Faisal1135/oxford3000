@@ -3,6 +3,7 @@ import './screens/dict_screen.dart';
 import './screens/dictonary_details.dart';
 import './screens/dictonary_overview.dart';
 
+// import 'package:provider/provider.dart';
 import 'package:provider/provider.dart';
 
 import './screens/home_page.dart';
@@ -24,14 +25,14 @@ class MyApp extends StatelessWidget {
           canvasColor: Color.fromRGBO(255, 254, 229, 1),
           fontFamily: 'OpenSans',
           textTheme: ThemeData.light().textTheme.copyWith(
-                title: TextStyle(
+                headline1: TextStyle(
                     fontFamily: "OpenSans",
                     fontWeight: FontWeight.bold,
                     fontSize: 20),
-                body1: TextStyle(
+                bodyText1: TextStyle(
                   color: Color.fromRGBO(20, 51, 51, 1),
                 ),
-                body2: TextStyle(
+                bodyText2: TextStyle(
                   color: Color.fromRGBO(20, 51, 51, 1),
                 ),
               ),

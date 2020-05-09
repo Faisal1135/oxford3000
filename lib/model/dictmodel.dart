@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 
 class DictonaryModel extends ChangeNotifier {
   final String englishWord;
-  final String banglaWord;
+  final List banglaWord;
   final Map meaning;
   bool isFavorite;
 
