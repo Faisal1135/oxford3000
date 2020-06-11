@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:oxford3000/screens/searchbar.dart';
+
 import '../model/dict_list.dart';
 import '../model/dictmodel.dart';
 
@@ -28,7 +30,6 @@ class _HomepageState extends State<Homepage> {
     wordlist.items = _dictonary;
     setState(() {
       dictonary = _dictonary;
-      // wordlist.items = _dictonary;
       wordlist.items = _dictonary;
     });
   }
@@ -37,10 +38,18 @@ class _HomepageState extends State<Homepage> {
   void initState() {
     super.initState();
     loaddictfromjson();
-    // Future.delayed(Duration(seconds: 0)).then((_) {
-    //   // return dictonary.map((item) =>
-    //   //     Provider.of<WordListModel>(context, listen: false).addDictItem(item));
-    // });
+  }
+
+  List<Map<String, Object>> _pages = [
+    {"title": "Alphabetic", "page": DictonaryOverView()},
+    {"title": "ListView", "page": ListDictScreen()}
+  ];
+  int selectedPageIndex = 0;
+
+  void _selectedPage(int index) {
+    setState(() {
+      selectedPageIndex = index;
+    });
   }
 
   @override
@@ -48,34 +57,61 @@ class _HomepageState extends State<Homepage> {
     Provider.of<WordListModel>(context).items = dictonary;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Homepage '),
-      ),
-      body: Center(
-        child: Container(
-          child: Column(
-            children: <Widget>[
-              Text('This is Oxford 3000'),
-              RaisedButton(
-                  // onPressed: () {
-                  //   Navigator.of(context).push(
-                  //       MaterialPageRoute(builder: (context) => DictScreen(),));
-                  // },
-                  onPressed: () {
-                    Navigator.of(context)
-                        .pushNamed(DictonaryOverView.routeName);
-                  },
-                  color: Colors.amber,
-                  child: Text('Start')),
-              RaisedButton(
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(ListDictScreen.routeName);
-                  },
-                  color: Colors.amber,
-                  child: Text('ListView')),
-            ],
+        title: Text('Oxford 3000'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              showSearch(
+                context: context,
+                delegate: Searchbar(),
+              );
+            },
           ),
-        ),
+        ],
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.pinkAccent,
+        onTap: _selectedPage,
+        items: [
+          BottomNavigationBarItem(
+              backgroundColor: Colors.pinkAccent,
+              icon: Icon(Icons.text_format),
+              title: Text("Dictonary")),
+          BottomNavigationBarItem(
+              backgroundColor: Colors.purple,
+              icon: Icon(Icons.title),
+              title: Text("All words")),
+        ],
+        unselectedItemColor: Colors.white,
+        selectedItemColor: Colors.amber,
+        currentIndex: selectedPageIndex,
+        type: BottomNavigationBarType.shifting,
+      ),
+      body: _pages[selectedPageIndex]["page"],
     );
   }
 }
+// Center(
+//         child: Container(
+//           child: Column(
+//             children: <Widget>[
+//               Text('This is Oxford 3000'),
+//               Text(description),
+//               RaisedButton(
+//                   onPressed: () {
+//                     Navigator.of(context)
+//                         .pushNamed(DictonaryOverView.routeName);
+//                   },
+//                   color: Colors.amber,
+//                   child: Text('Start')),
+//               RaisedButton(
+//                   onPressed: () {
+//                     Navigator.of(context).pushNamed(ListDictScreen.routeName);
+//                   },
+//                   color: Colors.amber,
+//                   child: Text('ListView')),
+//             ],
+//           ),
+//         ),
+//       ),

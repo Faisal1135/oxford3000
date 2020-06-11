@@ -15,9 +15,6 @@ class ListDictScreen extends StatelessWidget {
     final data = Provider.of<ModalData>(context);
 
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Oxford 3000'),
-        ),
         floatingActionButton: FloatingActionButton(
             child: Icon(Icons.bubble_chart),
             onPressed: () {

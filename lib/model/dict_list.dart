@@ -6,7 +6,11 @@ class WordListModel extends ChangeNotifier {
 
   List<DictonaryModel> get allDictItem => [...items];
   List<DictonaryModel> fetchByAlpha(String q) => items
-      .where((item) => item.englishWord.startsWith(q.toLowerCase()))
+      .where(
+        (item) => item.englishWord.startsWith(
+          q.toLowerCase(),
+        ),
+      )
       .toList();
 
   addDictItem(DictonaryModel dict) => items.add(dict);

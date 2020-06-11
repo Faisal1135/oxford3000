@@ -17,7 +17,7 @@ class DictScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Dictonary'),
+        title: Text('${q.toUpperCase()} -List'),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search),

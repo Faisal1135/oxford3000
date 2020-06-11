@@ -28,7 +28,45 @@ class Searchbar extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    return null;
+    final searchlist = Provider.of<WordListModel>(context, listen: false)
+        .allDictItem
+        .where((s) => s.englishWord.startsWith(query))
+        .toList();
+
+    return searchlist.isEmpty
+        ? Center(
+            child: Text('No Words Found'),
+          )
+        : ListView.builder(
+            itemCount: searchlist.length,
+            itemBuilder: (BuildContext context, int index) {
+              return ListTile(
+                onTap: () {
+                  Navigator.of(context).pushNamed(
+                      DictonaryDetailsScreen.routeName,
+                      arguments: searchlist[index]);
+                },
+                leading: Icon(Icons.book),
+                title: RichText(
+                  text: TextSpan(
+                    text: searchlist[index]
+                        .englishWord
+                        .substring(0, query.length),
+                    style: TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.bold),
+                    children: [
+                      TextSpan(
+                        text: searchlist[index]
+                            .englishWord
+                            .substring(query.length),
+                        style: TextStyle(color: Colors.grey),
+                      )
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
   }
 
   @override
@@ -47,7 +85,7 @@ class Searchbar extends SearchDelegate<String> {
             Navigator.of(context).pushNamed(DictonaryDetailsScreen.routeName,
                 arguments: searchlist[index]);
           },
-          leading: Icon(Icons.text_fields),
+          leading: Icon(Icons.book),
           title: RichText(
             text: TextSpan(
               text: searchlist[index].englishWord.substring(0, query.length),

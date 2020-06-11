@@ -8,22 +8,20 @@ class DictonaryOverView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Title'),
-          actions: <Widget>[],
-        ),
         body: GridView(
-          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 200,
-              childAspectRatio: 3 / 2,
-              crossAxisSpacing: 20,
-              mainAxisSpacing: 20),
-          padding: const EdgeInsets.all(15),
-          children: alpha
-              .map((char) => DictAlpha(
-                    title: char,
-                  ))
-              .toList(),
-        ));
+      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+          maxCrossAxisExtent: 200,
+          childAspectRatio: 3 / 2,
+          crossAxisSpacing: 20,
+          mainAxisSpacing: 20),
+      padding: const EdgeInsets.all(15),
+      children: alpha
+          .map(
+            (char) => DictAlpha(
+              title: char,
+            ),
+          )
+          .toList(),
+    ));
   }
 }

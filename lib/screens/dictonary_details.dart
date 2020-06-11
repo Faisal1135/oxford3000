@@ -15,21 +15,26 @@ class DictonaryDetailsScreen extends StatelessWidget {
       ),
       body: ListView(
         children: <Widget>[
+          SizedBox(
+            height: 20,
+          ),
           Center(
             child: RichText(
               text: TextSpan(
                   text: dictonary.englishWord.substring(0, 1).toUpperCase(),
                   style: TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.bold),
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 21),
                   children: [
-                    TextSpan(text: dictonary.englishWord.substring(1)),
+                    TextSpan(
+                        text: dictonary.englishWord.substring(1),
+                        style: const TextStyle(fontSize: 20)),
                   ]),
             ),
           ),
+          Divider(),
           SizedBox(height: 20),
-          // Center(
-          //   child: buildBn(banglaWord: dictonary.banglaWord),
-          // ),
           ExpansionTile(
             title: Text("Bangla Meaning"),
             subtitle: buildBn(banglaWord: dictonary.banglaWord),
@@ -65,6 +70,9 @@ class DictonaryDetailsScreen extends StatelessWidget {
                     child: Wrap(
                       children: <Widget>[
                         Icon(Icons.ac_unit),
+                        SizedBox(
+                          width: 10,
+                        ),
                         Container(
                           child: Text(
                             e.trim(),
